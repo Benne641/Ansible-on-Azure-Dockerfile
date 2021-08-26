@@ -13,9 +13,10 @@ RUN pip3 install 'ansible[azure]'
 RUN ansible-galaxy collection install azure.azcollection
 RUN wget https://raw.githubusercontent.com/ansible-collections/azure/dev/requirements-azure.txt
 RUN pip3 install -r requirements-azure.txt
-RUN useradd azure_user
-RUN echo 'azure_user:password1' | chpasswd
-RUN mkdir /home/azure_user/.azure
+COPY .azure/credentials /root/.azure/
+#RUN useradd azure_user
+#RUN echo 'azure_user:password1' | chpasswd
+#RUN mkdir /home/azure_user/.azure
 #CMD ["ansible", "git", "-g", "daemon off";"]
 ENTRYPOINT ["tail", "-f", "/dev/null"]
 #STOPSIGNAL SIGQUIT
